@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/middlefinger.wav-58a426ededc905bfed72e4c68bc26e97.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Car/middlefinger.wav"
+dest_files=[ "res://.import/middlefinger.wav-58a426ededc905bfed72e4c68bc26e97.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

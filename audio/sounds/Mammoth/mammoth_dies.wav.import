@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mammoth_dies.wav-f96d3a3f545b97a44f986af6ea08e47e.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Mammoth/mammoth_dies.wav"
+dest_files=[ "res://.import/mammoth_dies.wav-f96d3a3f545b97a44f986af6ea08e47e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

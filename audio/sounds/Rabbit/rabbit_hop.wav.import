@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rabbit_hop.wav-81633adb5ed283f876f6956f927bfc70.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Rabbit/rabbit_hop.wav"
+dest_files=[ "res://.import/rabbit_hop.wav-81633adb5ed283f876f6956f927bfc70.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

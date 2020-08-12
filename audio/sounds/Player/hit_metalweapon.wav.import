@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hit_metalweapon.wav-82d74cb330eea5a4d088802a086f2267.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Player/hit_metalweapon.wav"
+dest_files=[ "res://.import/hit_metalweapon.wav-82d74cb330eea5a4d088802a086f2267.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

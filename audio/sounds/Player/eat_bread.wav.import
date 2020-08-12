@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/eat_bread.wav-3fad8bd93841cb8e70526bf8f7db6894.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Player/eat_bread.wav"
+dest_files=[ "res://.import/eat_bread.wav-3fad8bd93841cb8e70526bf8f7db6894.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

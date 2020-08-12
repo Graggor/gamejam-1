@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mammoth_impact.wav-74a309ac389124cd49eaddf2a92203dd.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Mammoth/mammoth_impact.wav"
+dest_files=[ "res://.import/mammoth_impact.wav-74a309ac389124cd49eaddf2a92203dd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

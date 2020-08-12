@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/weapon_hit_animal.wav-2df8bd96f6b8a79f0c3497951a9d9c86.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Player/weapon_hit_animal.wav"
+dest_files=[ "res://.import/weapon_hit_animal.wav-2df8bd96f6b8a79f0c3497951a9d9c86.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

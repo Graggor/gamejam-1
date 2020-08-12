@@ -1,51 +1,74 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/Enemies/wildboar.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Boar.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Hurtbox.gd" type="Script" id=3]
+[ext_resource path="res://audio/sounds/Boar/boar_weeeeh.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/sounds/Boar/wildboar_walk.wav" type="AudioStream" id=5]
 
-[sub_resource type="Animation" id=6]
-resource_name = "attack"
+[sub_resource type="Animation" id=1]
+resource_name = "attack_charge"
+length = 0.5
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.01, 0.02, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.46, 0.6, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -1.93246, -1.48651 ), Vector2( 3.91447, 3.01113 ), Vector2( 3.70845, 2.85265 ), Vector2( 3.60543, 2.77341 ), Vector2( 3.65107, -1.91401 ), Vector2( 3.69234, 0.966654 ), Vector2( -1.17638, 1.82927 ), Vector2( -2.77478, -4.91719 ), Vector2( 3.70672, 0.890168 ), Vector2( 0, 0 ), Vector2( 42, 0 ), Vector2( 0, 0 ) ]
+"times": PoolRealArray( 0, 0.38 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 5, 6 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/1/path = NodePath("Sprite:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.46, 0.6, 1 ),
+"times": PoolRealArray( 0.05, 0.3, 0.45 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 42, 0 ), Vector2( 0, 0 ) ]
+"values": [ 0.0, -50.0, 0.0 ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/type = "audio"
+tracks/2/path = NodePath("Sound")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.44, 0.67 ),
-"transitions": PoolRealArray( 1, 1 ),
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "attack_run"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ 7, 8, 9, 10 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 resource_name = "idle"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
@@ -59,8 +82,10 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "walk"
+length = 0.8
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
@@ -73,30 +98,58 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("Sound")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 17, 9 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 6, 5 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16, 9 )
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=7]
 radius = 20.0
 height = 160.0
 
-[sub_resource type="CapsuleShape2D" id=5]
+[sub_resource type="CapsuleShape2D" id=8]
+height = 40.0
 
 [node name="Boar" type="KinematicBody2D"]
 collision_layer = 0
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 6 )
-anims/idle = SubResource( 8 )
-anims/walk = SubResource( 7 )
+anims/attack_charge = SubResource( 1 )
+anims/attack_run = SubResource( 9 )
+anims/idle = SubResource( 2 )
+anims/walk = SubResource( 3 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
@@ -105,25 +158,27 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource( 1 )
+[node name="Hurtbox" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource( 4 )
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2( 10, 2 )
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource( 2 )
+[node name="Hitbox" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 5 )
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, 5 )
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+hframes = 12
+frame = 8
 
 [node name="Vision" type="Area2D" parent="."]
 visible = false
@@ -133,10 +188,9 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 rotation = 1.5708
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 
 [node name="TurnRays" type="Node2D" parent="."]
-visible = false
 
 [node name="Floor" type="RayCast2D" parent="TurnRays"]
 position = Vector2( 10, 2 )
@@ -151,18 +205,25 @@ cast_to = Vector2( 0, 17 )
 [node name="ChaseTimer" type="Timer" parent="."]
 wait_time = 0.6
 
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="AttackRange" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
-position = Vector2( 20.4378, 4.36535 )
+position = Vector2( 27, 4 )
 rotation = 1.5708
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+bus = "Sounds"
+
+[node name="AttackCooldown" type="Timer" parent="."]
 one_shot = true
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="Vision" to="." method="_on_Vision_body_entered"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_ChaseTimer_timeout"]
-[connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_AttackCooldown_timeout"]

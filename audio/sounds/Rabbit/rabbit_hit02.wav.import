@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rabbit_hit02.wav-7a6a18588a380eb87427cc5e927f4ff1.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Rabbit/rabbit_hit02.wav"
+dest_files=[ "res://.import/rabbit_hit02.wav-7a6a18588a380eb87427cc5e927f4ff1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

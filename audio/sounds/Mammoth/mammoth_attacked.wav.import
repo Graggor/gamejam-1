@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mammoth_attacked.wav-ee8322ac95cd2b2123e88e2bca58dcf9.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Mammoth/mammoth_attacked.wav"
+dest_files=[ "res://.import/mammoth_attacked.wav-ee8322ac95cd2b2123e88e2bca58dcf9.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
