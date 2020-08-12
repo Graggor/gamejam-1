@@ -14,6 +14,7 @@ var jump_velocity
 var running = false
 var hit_sounds = []
 var playing_sound = false
+var meat = preload("res://Levels/Pickups/Meat.tscn")
 
 onready var turnrays = $TurnRays
 onready var runtimer = $RunTimer
@@ -35,7 +36,8 @@ func take_damage(damage):
 	print(health)
 
 func _physics_process(delta):
-	if (health <= 0):
+	if (health <= 0 && state != "dead"):
+		state = "dead"
 		die()
 		
 	velocity.y += gravity * delta
@@ -54,6 +56,8 @@ func _physics_process(delta):
 				runtimer.start()
 			if jumpray.is_colliding() && is_on_floor():
 				jump()
+		"dead":
+			pass
 		
 	velocity.x = lerp(velocity.x, speed * direction, 0.4)
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -103,6 +107,10 @@ func assign_anim(anim):
 		animationplayer.play(anim)
 
 func die():
+	var drop = meat.instance()
+	drop.position = position
+	get_parent().add_child(drop)
+	yield(sound, "finished")
 	queue_free()
 
 

@@ -14,6 +14,7 @@ var attack_range = 60
 var chase_range = 90
 var attacking = false
 var may_attack = true
+var meat = preload("res://Levels/Pickups/Meat.tscn")
 
 onready var turnrays = $TurnRays
 onready var vision = $Vision
@@ -68,6 +69,8 @@ func _physics_process(delta):
 				attacktimer.start()
 			velocity.x = lerp(velocity.x, speed * direction, 0.4)
 			velocity = move_and_slide(velocity, Vector2.UP)
+		"dead":
+			pass
 
 func turn_to_player():
 	var player = get_owner().get_node("Player")
@@ -114,6 +117,9 @@ func _on_ChaseTimer_timeout():
 	turn_to_player()
 
 func die():
+	var drop = meat.instance()
+	drop.position = position
+	get_parent().add_child(drop)
 	queue_free()
 
 func _on_Hitbox_area_entered(area):

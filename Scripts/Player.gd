@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const SLOPE_STOP = 64
 
-var health = 100
+var health = 100.0
 var move_speed = 5 * Globals.UNIT_SIZE
 var max_jump_velocity
 var min_jump_velocity
@@ -18,12 +18,18 @@ var damage = 10
 var weapon = "punch"
 var walk_pitch = 1.0
 var jump_sound
+var heart_time = 0
+var heart_step = 1
+var max_heart_time = 60
+var heart_start
+var heart_damage
 
 var velocity = Vector2.ZERO
 
 onready var animation_player = $AnimationPlayer
 onready var sound = $Sound
 onready var code_sound = $CodeSound
+onready var heart_music = $HeartMusic
 
 func _ready():
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
@@ -32,6 +38,11 @@ func _ready():
 	min_jump_velocity = -sqrt(2 * gravity * min_jump_height)
 	
 	jump_sound = preload("res://audio/sounds/Player/player_jump3.wav")
+	
+	heart_start = (health / max_heart_time) * 24
+	heart_damage = health / max_heart_time
+	print(heart_damage)
+	print(heart_start)
 	
 	$Camera2D/HUD/HealthBar._on_health_updated(health)
 	$Camera2D/HUD/HealthBar._on_max_health_updated(health)
@@ -42,6 +53,16 @@ func _physics_process(delta):
 	else:
 		_get_input()
 		
+		heart_time += delta
+		if heart_time >= heart_step:
+			take_damage(heart_damage)
+			heart_time = 0
+			
+		if health < heart_start && !heart_music.is_playing():
+			heart_music.play()
+		if health > heart_start:
+			heart_music.stop()
+			
 		if jumping:
 			snap = Vector2()
 		else:
@@ -112,6 +133,16 @@ func randomize_pitch():
 	randomize()
 	walk_pitch = rand_range(2, 1)
 
+func heal():
+	health += 10
+	print(health)
+	$Camera2D/HUD/HealthBar._on_health_updated(health)
+
+func talk(words):
+	$Label.text = words
+	yield(get_tree().create_timer(2), "timeout")
+	$Label.text = ""
+	
 
 func _on_PitchTimer_timeout():
 	randomize_pitch()
