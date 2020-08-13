@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/animalhit.wav-02cb21f0eb6753cdd21d7f1845f0ca2c.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Player/animalhit.wav"
+dest_files=[ "res://.import/animalhit.wav-02cb21f0eb6753cdd21d7f1845f0ca2c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

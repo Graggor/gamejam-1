@@ -10,5 +10,5 @@ func _ready():
 
 func _on_Area2D_body_entered(body):
 	$Area2D/CollisionShape2D.disabled = true
-	body.heal()
+	body.feed()
 	queue_free()

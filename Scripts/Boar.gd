@@ -117,6 +117,7 @@ func _on_ChaseTimer_timeout():
 	turn_to_player()
 
 func die():
+	print("boar died")
 	var drop = meat.instance()
 	drop.position = position
 	get_parent().add_child(drop)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/boar_weehhh.wav-5b42c0425b03a5ee38c777daaa12befb.sample"
+
+[deps]
+
+source_file="res://audio/sounds/Rabbit/boar_weehhh.wav"
+dest_files=[ "res://.import/boar_weehhh.wav-5b42c0425b03a5ee38c777daaa12befb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

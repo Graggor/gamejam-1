@@ -3,6 +3,7 @@ extends KinematicBody2D
 const SLOPE_STOP = 64
 
 var health = 100.0
+var hunger = 100.0
 var move_speed = 5 * Globals.UNIT_SIZE
 var max_jump_velocity
 var min_jump_velocity
@@ -23,6 +24,8 @@ var heart_step = 1
 var max_heart_time = 60
 var heart_start
 var heart_damage
+var heals_left
+var max_heals = 5
 
 var velocity = Vector2.ZERO
 
@@ -30,6 +33,9 @@ onready var animation_player = $AnimationPlayer
 onready var sound = $Sound
 onready var code_sound = $CodeSound
 onready var heart_music = $HeartMusic
+onready var hungertimer = $HungerTimer
+onready var healtimer = $HealTimer
+onready var hungerdamagetimer = $HungerDamageTimer
 
 func _ready():
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
@@ -37,15 +43,17 @@ func _ready():
 	max_jump_velocity = -sqrt(2 * gravity * max_jump_height)
 	min_jump_velocity = -sqrt(2 * gravity * min_jump_height)
 	
+	heals_left = max_heals
+	
 	jump_sound = preload("res://audio/sounds/Player/player_jump3.wav")
 	
-	heart_start = (health / max_heart_time) * 24
-	heart_damage = health / max_heart_time
-	print(heart_damage)
-	print(heart_start)
+	heart_start = (hunger / max_heart_time) * 24
+	heart_damage = hunger / max_heart_time
 	
 	$Camera2D/HUD/HealthBar._on_health_updated(health)
 	$Camera2D/HUD/HealthBar._on_max_health_updated(health)
+	$Camera2D/HUD/HungerBar._on_hunger_updated(hunger)
+	$Camera2D/HUD/HungerBar._on_max_hunger_updated(hunger)
 
 func _physics_process(delta):
 	if (health <= 0):
@@ -54,13 +62,16 @@ func _physics_process(delta):
 		_get_input()
 		
 		heart_time += delta
-		if heart_time >= heart_step:
-			take_damage(heart_damage)
+		if heart_time >= heart_step && hungertimer.is_stopped() && hunger > 0:
+			take_hunger(heart_damage)
 			heart_time = 0
-			
-		if health < heart_start && !heart_music.is_playing():
+		
+		if hunger <= 0 && hungerdamagetimer.is_stopped():
+			hungerdamagetimer.start()
+		
+		if hunger < heart_start && !heart_music.is_playing():
 			heart_music.play()
-		if health > heart_start:
+		if hunger > heart_start:
 			heart_music.stop()
 			
 		if jumping:
@@ -123,8 +134,11 @@ func change_weapon(new_weapon, new_damage):
 
 func take_damage(damage_taken):
 	health -= damage_taken
-	print(health)
 	$Camera2D/HUD/HealthBar._on_health_updated(health)
+
+func take_hunger(hunger_taken):
+	hunger -= hunger_taken
+	$Camera2D/HUD/HungerBar._on_hunger_updated(hunger)
 
 func die():
 	get_tree().reload_current_scene()
@@ -135,14 +149,34 @@ func randomize_pitch():
 
 func heal():
 	health += 10
-	print(health)
 	$Camera2D/HUD/HealthBar._on_health_updated(health)
+
+func feed():
+	hunger = 100.0
+	hungerdamagetimer.stop()
+	hungertimer.stop()
+	healtimer.start()
+	hungertimer.start()
+	$Camera2D/HUD/HungerBar._on_hunger_updated(hunger)
 
 func talk(words):
 	$Label.text = words
-	yield(get_tree().create_timer(2), "timeout")
+	yield(get_tree().create_timer(1.5), "timeout")
 	$Label.text = ""
 	
 
 func _on_PitchTimer_timeout():
 	randomize_pitch()
+
+
+func _on_HealTimer_timeout():
+	heals_left -= 1
+	if heals_left <= 0:
+		healtimer.stop()
+		heals_left = max_heals
+	else:
+		heal()
+
+
+func _on_HungerDamageTimer_timeout():
+	take_damage(10)

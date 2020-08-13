@@ -124,7 +124,7 @@ bus = "Sounds"
 
 [node name="Hop" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-volume_db = 1.0
-max_distance = 600.0
+volume_db = -6.0
+max_distance = 200.0
 attenuation = 2.73208
 [connection signal="timeout" from="RunTimer" to="." method="_on_RunTimer_timeout"]

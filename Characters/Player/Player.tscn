@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Sprites/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
@@ -8,23 +8,24 @@
 [ext_resource path="res://audio/sounds/Player/player_walkcycle.wav" type="AudioStream" id=6]
 [ext_resource path="res://audio/sounds/Player/heartbeat.wav" type="AudioStream" id=7]
 [ext_resource path="res://Fonts/Pixellari.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Sprites/Environment/cloud.png" type="Texture" id=9]
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=1]
 size = 10
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 8 )
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 4.0
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 3.5, 12.5 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 5, 6 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -76,7 +77,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -104,7 +105,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -158,8 +159,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0.000961967 )
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "stick"
+[sub_resource type="Animation" id=8]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -261,7 +261,7 @@ tracks/7/keys = {
 "values": [ 0.68, 1.0 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 0.3
 loop = true
 step = 0.05
@@ -343,7 +343,7 @@ margin_right = 20.0
 margin_bottom = -20.125
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 1 )
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -360,7 +360,7 @@ margin_bottom = -131.903
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 2
@@ -369,7 +369,7 @@ script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, 3 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Body" type="Node2D" parent="."]
 
@@ -386,15 +386,15 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Hitbox"]
 position = Vector2( 7.85814, 3.56083 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 4 )
-anims/jump = SubResource( 5 )
-anims/punch = SubResource( 6 )
-anims/stick = SubResource( 7 )
-anims/walk = SubResource( 8 )
+anims/idle = SubResource( 5 )
+anims/jump = SubResource( 6 )
+anims/punch = SubResource( 7 )
+anims/stick = SubResource( 8 )
+anims/walk = SubResource( 9 )
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
@@ -411,6 +411,30 @@ bus = "Sounds"
 
 [node name="HeartMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Music"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 1280, 1280 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 9 )
+
+[node name="HungerDamageTimer" type="Timer" parent="."]
+wait_time = 2.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="HungerTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="HealTimer" type="Timer" parent="."]
 [connection signal="area_entered" from="Body/Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="PitchTimer" to="." method="_on_PitchTimer_timeout"]
+[connection signal="timeout" from="HungerDamageTimer" to="." method="_on_HungerDamageTimer_timeout"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_HealTimer_timeout"]
