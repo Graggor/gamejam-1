@@ -65,6 +65,7 @@ tracks/1/keys = {
 
 [node name="Meat" type="Node2D"]
 script = ExtResource( 3 )
+food = "meat"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

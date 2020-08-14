@@ -26,12 +26,17 @@ var heart_start
 var heart_damage
 var heals_left
 var max_heals = 5
+var bread_sound
+var meat_sound
+var get_hit_sound
+var die_sound
 
 var velocity = Vector2.ZERO
 
 onready var animation_player = $AnimationPlayer
 onready var sound = $Sound
 onready var code_sound = $CodeSound
+onready var code_sound2 = $CodeSound2
 onready var heart_music = $HeartMusic
 onready var hungertimer = $HungerTimer
 onready var healtimer = $HealTimer
@@ -46,6 +51,10 @@ func _ready():
 	heals_left = max_heals
 	
 	jump_sound = preload("res://audio/sounds/Player/player_jump3.wav")
+	bread_sound = preload("res://audio/sounds/Player/eat_bread.wav")
+	meat_sound = preload("res://audio/sounds/Player/eat_meat.wav")
+	get_hit_sound = preload("res://audio/sounds/Player/player_hurt1.wav")
+	die_sound = preload("res://audio/sounds/Player/death.wav")
 	
 	heart_start = (hunger / max_heart_time) * 24
 	heart_damage = hunger / max_heart_time
@@ -135,12 +144,19 @@ func change_weapon(new_weapon, new_damage):
 func take_damage(damage_taken):
 	health -= damage_taken
 	$Camera2D/HUD/HealthBar._on_health_updated(health)
+	code_sound2.stop()
+	code_sound2.stream = get_hit_sound
+	code_sound2.play()
 
 func take_hunger(hunger_taken):
 	hunger -= hunger_taken
 	$Camera2D/HUD/HungerBar._on_hunger_updated(hunger)
 
 func die():
+	get_tree().paused = true
+	animation_player.play("die")
+	yield(animation_player, "animation_finished")
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 func randomize_pitch():
@@ -151,14 +167,21 @@ func heal():
 	health += 10
 	$Camera2D/HUD/HealthBar._on_health_updated(health)
 
-func feed():
+func feed(food):
 	hunger = 100.0
 	hungerdamagetimer.stop()
 	hungertimer.stop()
 	healtimer.start()
 	hungertimer.start()
 	$Camera2D/HUD/HungerBar._on_hunger_updated(hunger)
-
+	if food == "meat":
+		code_sound2.stream = meat_sound
+	elif food == "bread":
+		code_sound2.stream = bread_sound
+	
+	code_sound2.pitch_scale = 1
+	code_sound2.play()
+	
 func talk(words):
 	$Label.text = words
 	yield(get_tree().create_timer(1.5), "timeout")

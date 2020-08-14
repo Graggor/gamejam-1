@@ -41,6 +41,7 @@ tracks/0/keys = {
 
 [node name="Bread" type="Node2D"]
 script = ExtResource( 3 )
+food = "bread"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -62,3 +63,4 @@ anims/idle = SubResource( 3 )
 stream = ExtResource( 1 )
 volume_db = -4.0
 bus = "Sounds"
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

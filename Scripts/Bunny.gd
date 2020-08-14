@@ -63,8 +63,8 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 func turn_from_player():
-	var player = get_owner().get_node("Player")
-	var turndirection = position.direction_to(player.position)
+	var player = get_player()
+	var turndirection = position.direction_to(player.global_position)
 	if turndirection.x > 0:
 		if direction != -1:
 			turn_around()
@@ -84,12 +84,15 @@ func jump():
 		velocity.y = jump_velocity
 
 func close_to_player():
-	var player = get_owner().get_node("Player")
+	var player = get_player()
 	var to_player = player.global_position.x - global_position.x
 	var distance = max(to_player, -to_player)
 	if (distance <= run_range):
 		return true
 	return false
+
+func get_player():
+	return get_tree().get_nodes_in_group("Player")[0]
 
 func check_turn(check_floor):
 	if $TurnRays/Wall.is_colliding():

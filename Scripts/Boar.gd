@@ -14,6 +14,7 @@ var attack_range = 60
 var chase_range = 90
 var attacking = false
 var may_attack = true
+var knockback_distance = 150
 var meat = preload("res://Levels/Pickups/Meat.tscn")
 
 onready var turnrays = $TurnRays
@@ -24,10 +25,14 @@ onready var attackcooldown = $AttackCooldown
 onready var animationplayer = $AnimationPlayer
 onready var attackvision = $AttackRange
 onready var sound = $Sound
+onready var sound2 = $Sound2
+onready var get_hit_sound = preload("res://audio/sounds/Boar/wildboar_hit.wav")
 
 func take_damage(damage_taken):
 	health -= damage_taken
-	print(health)
+	sound2.stop()
+	sound2.stream = get_hit_sound
+	sound2.play(0.2)
 
 func _physics_process(delta):
 	if (health <= 0):
@@ -71,10 +76,11 @@ func _physics_process(delta):
 			velocity = move_and_slide(velocity, Vector2.UP)
 		"dead":
 			pass
+			
 
 func turn_to_player():
-	var player = get_owner().get_node("Player")
-	var turndirection = position.direction_to(player.position)
+	var player = get_player()
+	var turndirection = position.direction_to(player.global_position)
 	if turndirection.x > 0:
 		if direction != 1:
 			turn_around()
@@ -82,14 +88,17 @@ func turn_to_player():
 		if direction != -1:
 			turn_around()
 	
+func get_player():
+	return get_tree().get_nodes_in_group("Player")[0]
+
 func can_attack():
-	var player = get_owner().get_node("Player")
+	var player = get_player()
 	if attackvision.overlaps_body(player) && attackcooldown.is_stopped():
 		return true
 	return false
 
 func close_to_player():
-	var player = get_owner().get_node("Player")
+	var player = get_player()
 	var to_player = player.global_position.x - global_position.x
 	var distance = max(to_player, -to_player)
 	if (distance <= chase_range):
