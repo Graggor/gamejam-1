@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Sprites/Enemies/wildboar.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Boar.gd" type="Script" id=2]
@@ -6,10 +6,12 @@
 [ext_resource path="res://audio/sounds/Boar/boar_weeeeh.wav" type="AudioStream" id=4]
 [ext_resource path="res://audio/sounds/Boar/wildboar_walk.wav" type="AudioStream" id=5]
 [ext_resource path="res://audio/sounds/Boar/wildboar_hit.wav" type="AudioStream" id=6]
+[ext_resource path="res://Characters/DamageAnimation.tres" type="Animation" id=7]
+[ext_resource path="res://Damage.shader" type="Shader" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_charge"
-length = 0.5
+length = 0.28
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -18,7 +20,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.38 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 5, 6 ]
@@ -30,7 +32,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.05, 0.3, 0.45 ),
+"times": PoolRealArray( 0.05, 0.15, 0.28 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, -50.0, 0.0 ]
@@ -43,11 +45,23 @@ tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
 "clips": [ {
-"end_offset": 0.0,
+"end_offset": 0.212596,
 "start_offset": 0.0,
 "stream": ExtResource( 4 )
 } ],
 "times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Hitbox/Hitbox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1, 0.28 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -187,12 +201,34 @@ extents = Vector2( 4.43949, 3.92888 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 10, 7.03862 )
 
+[sub_resource type="ShaderMaterial" id=11]
+resource_local_to_scene = true
+shader = ExtResource( 8 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
+
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 20.0
 height = 160.0
 
 [sub_resource type="CapsuleShape2D" id=9]
 height = 40.0
+
+[sub_resource type="Animation" id=12]
+resource_name = "damage"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0, 1.0, 0.0 ]
+}
 
 [node name="Boar" type="KinematicBody2D"]
 collision_layer = 0
@@ -230,12 +266,12 @@ position = Vector2( -0.875555, 5.8232 )
 shape = SubResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 11 )
 texture = ExtResource( 1 )
 hframes = 12
-frame = 5
+frame = 6
 
 [node name="Vision" type="Area2D" parent="."]
-visible = false
 position = Vector2( 0, 2 )
 collision_layer = 0
 collision_mask = 2
@@ -284,8 +320,14 @@ bus = "Sounds"
 
 [node name="AttackCooldown" type="Timer" parent="."]
 one_shot = true
+
+[node name="DamagePlayer" type="AnimationPlayer" parent="."]
+pause_mode = 2
+anims/DamageAnimation = ExtResource( 7 )
+anims/damage = SubResource( 12 )
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="Vision" to="." method="_on_Vision_body_entered"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_ChaseTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_AttackCooldown_timeout"]

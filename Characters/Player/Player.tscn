@@ -1,14 +1,17 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Sprites/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Hurtbox.gd" type="Script" id=4]
 [ext_resource path="res://audio/sounds/Player/player_hitting.wav" type="AudioStream" id=5]
-[ext_resource path="res://audio/sounds/Player/player_walkcycle.wav" type="AudioStream" id=6]
+[ext_resource path="res://audio/sounds/Player/player_walking.wav" type="AudioStream" id=6]
 [ext_resource path="res://audio/sounds/Player/heartbeat.wav" type="AudioStream" id=7]
 [ext_resource path="res://Fonts/Pixellari.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://audio/sounds/Player/death.wav" type="AudioStream" id=9]
+[ext_resource path="res://Damage.shader" type="Shader" id=10]
+[ext_resource path="res://Characters/DamageAnimation.tres" type="Animation" id=11]
+[ext_resource path="res://audio/sounds/Player/hit_animalweapon_metal.wav" type="AudioStream" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 10
@@ -16,11 +19,17 @@ outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 8 )
 
+[sub_resource type="ShaderMaterial" id=13]
+resource_local_to_scene = true
+shader = ExtResource( 10 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
+
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 5, 6 )
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 4.0
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 4, 14 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 3.5, 12.5 )
@@ -65,6 +74,30 @@ tracks/2/keys = {
 "stream": ExtResource( 9 )
 } ],
 "times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CodeSound2:pitch_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.2 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -145,6 +178,483 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "medieval_die"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 1.1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 9.4, 0.0, -90.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -16, 14 ) ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("CodeSound2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 9 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 18 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CodeSound2:pitch_scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.4, 1.2 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "medieval_idle"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Hitbox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "medieval_jump"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "medieval_punch"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 21, 22, 23 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/Hitbox/CollisionShape2D:shape:extents")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5, 6 ) ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("Sound")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0.000961967 )
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "medieval_stick"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 28, 29, 30 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/Hitbox/CollisionShape2D:shape:extents")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 6, 8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 7.85814, 3.56083 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -4, 3 ), Vector2( -2, 3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -4, 2 ), Vector2( -2, 2 ) ]
+}
+tracks/6/type = "audio"
+tracks/6/path = NodePath("Sound")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0.000961974 )
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sound:pitch_scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.00192394, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.68, 1.0 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "medieval_sword"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/Hitbox/CollisionShape2D:shape:extents")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 6, 8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 7.85814, 3.56083 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -4, 3 ), Vector2( -2, 3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -4, 2 ), Vector2( -2, 2 ) ]
+}
+tracks/6/type = "audio"
+tracks/6/path = NodePath("Sound")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"clips": [ {
+"end_offset": 1.14,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sound:pitch_scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "medieval_walk"
+length = 0.3
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 14, 15, 16, 17, 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 3 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Hitbox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("Sound")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 6 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=7]
@@ -363,7 +873,7 @@ tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
 "clips": [ {
-"end_offset": 6.7,
+"end_offset": 0.0,
 "start_offset": 0.0,
 "stream": ExtResource( 6 )
 } ],
@@ -373,6 +883,7 @@ tracks/4/keys = {
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
+is_medieval = true
 
 [node name="Label" type="Label" parent="."]
 margin_left = -20.0
@@ -390,14 +901,16 @@ __meta__ = {
 [node name="Body" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Body"]
+material = SubResource( 13 )
 texture = ExtResource( 1 )
 hframes = 32
-frame = 5
+frame = 23
 region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="Hitbox" type="Area2D" parent="Body" groups=[
 "Player",
 ]]
+visible = false
 position = Vector2( 3, 0 )
 collision_layer = 0
 collision_mask = 4
@@ -418,16 +931,18 @@ margin_right = -238.379
 margin_bottom = -131.903
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2 )
-shape = SubResource( 2 )
+visible = false
+position = Vector2( -2, 2 )
+shape = SubResource( 11 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 0, 3 )
+position = Vector2( -2, 3 )
 shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -435,13 +950,19 @@ pause_mode = 2
 anims/die = SubResource( 10 )
 anims/idle = SubResource( 5 )
 anims/jump = SubResource( 6 )
+anims/medieval_die = SubResource( 17 )
+anims/medieval_idle = SubResource( 18 )
+anims/medieval_jump = SubResource( 15 )
+anims/medieval_punch = SubResource( 20 )
+anims/medieval_stick = SubResource( 16 )
+anims/medieval_sword = SubResource( 19 )
+anims/medieval_walk = SubResource( 14 )
 anims/punch = SubResource( 7 )
 anims/stick = SubResource( 8 )
 anims/walk = SubResource( 9 )
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
-pitch_scale = 1.27
+stream = ExtResource( 5 )
 bus = "Sounds"
 
 [node name="PitchTimer" type="Timer" parent="."]
@@ -455,7 +976,6 @@ bus = "Sounds"
 [node name="CodeSound2" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 9 )
-pitch_scale = 1.2
 bus = "Sounds"
 
 [node name="HeartMusic" type="AudioStreamPlayer" parent="."]
@@ -475,7 +995,12 @@ one_shot = true
 [node name="HealTimer" type="Timer" parent="."]
 
 [node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
 one_shot = true
+
+[node name="DamagePlayer" type="AnimationPlayer" parent="."]
+pause_mode = 2
+anims/damage = ExtResource( 11 )
 [connection signal="area_entered" from="Body/Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="PitchTimer" to="." method="_on_PitchTimer_timeout"]

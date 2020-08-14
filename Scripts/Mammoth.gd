@@ -15,6 +15,7 @@ var chase_range = 90
 var attacking = false
 var may_attack = true
 var meat = preload("res://Levels/Pickups/Meat.tscn")
+var running_back = false
 
 onready var turnrays = $TurnRays
 onready var vision = $Vision
@@ -26,8 +27,10 @@ onready var attackvision = $AttackRange
 onready var sound = $Sound
 onready var sound2 = $Sound2
 onready var get_hit_sound = preload("res://audio/sounds/Mammoth/mammoth_attacked.wav")
+onready var damageplayer = $DamagePlayer
 
 func take_damage(damage_taken):
+	damageplayer.play("damage")
 	health -= damage_taken
 	sound2.stop()
 	sound2.stream = get_hit_sound
@@ -36,11 +39,12 @@ func take_damage(damage_taken):
 func _physics_process(delta):
 	if (health <= 0):
 		die()
-		
+	
 	velocity.y += gravity * delta
 	
 	match state:
 		"walking":
+			attacking = false
 			animationplayer.play("walk")
 			speed = walk_speed
 			if(check_turn(true)):
@@ -48,6 +52,7 @@ func _physics_process(delta):
 			velocity.x = lerp(velocity.x, speed * direction, 0.4)
 			velocity = move_and_slide(velocity, Vector2.UP)
 		"chasing":
+			attacking = false
 			animationplayer.play("run_angry")
 			if(check_turn(false)):
 				turn_around()
@@ -75,6 +80,7 @@ func _physics_process(delta):
 			velocity.x = lerp(velocity.x, speed * direction, 0.4)
 			velocity = move_and_slide(velocity, Vector2.UP)
 		"dead":
+			attacking = false
 			pass
 		"attack_hit":
 			animationplayer.play("attack_hit")

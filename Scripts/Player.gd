@@ -30,6 +30,8 @@ var bread_sound
 var meat_sound
 var get_hit_sound
 var die_sound
+var pre
+export (bool) var is_medieval
 
 var velocity = Vector2.ZERO
 
@@ -41,12 +43,19 @@ onready var heart_music = $HeartMusic
 onready var hungertimer = $HungerTimer
 onready var healtimer = $HealTimer
 onready var hungerdamagetimer = $HungerDamageTimer
+onready var coyotetimer = $CoyoteTimer
+onready var damageplayer = $DamagePlayer
 
 func _ready():
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
 	print(gravity)
 	max_jump_velocity = -sqrt(2 * gravity * max_jump_height)
 	min_jump_velocity = -sqrt(2 * gravity * min_jump_height)
+		
+	if is_medieval:
+		pre = "medieval_"
+	else:
+		pre = ""
 	
 	heals_left = max_heals
 	
@@ -89,13 +98,24 @@ func _physics_process(delta):
 			snap = Vector2(0,4)
 		
 		velocity.y += gravity * delta
-		is_grounded = is_on_floor()
+		
+		if jumping && velocity.y >= 0:
+			jumping = false
+		
+		var was_on_floor = is_on_floor()
+		
 		velocity = move_and_slide_with_snap(velocity, snap, Vector2.UP)
+		
+		if !is_on_floor() && was_on_floor && !jumping:
+			coyotetimer.start()
+		
+		is_grounded = is_on_floor()
 		_assign_anim()
 
 func _input(event):
 	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
+		if is_on_floor() || !coyotetimer.is_stopped():
+			coyotetimer.stop()
 			code_sound.pitch_scale = 1.2
 			code_sound.stream = jump_sound
 			code_sound.play()
@@ -116,15 +136,16 @@ func _get_input():
 		$Body.scale.x = move_direction
 
 func _assign_anim():
-	var anim = "idle"
+	
+	var anim = "%sidle" % [pre]
 	sound.pitch_scale = 1.0
 	
 	if attacking:
-		anim = weapon
+		anim = pre + weapon
 	elif !is_grounded:
-		anim = "jump"
+		anim = "%sjump" % [pre]
 	elif !(velocity.x < 0.4 && velocity.x > -0.4):
-		anim = "walk"
+		anim = "%swalk" % [pre]
 		sound.pitch_scale = walk_pitch
 	
 	animation_player.play(anim)
@@ -134,7 +155,7 @@ func _on_Hitbox_area_entered(area):
 	area.take_damage(damage)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if(anim_name == weapon):
+	if(anim_name == pre + weapon):
 		attacking = false
 
 func change_weapon(new_weapon, new_damage):
@@ -142,6 +163,7 @@ func change_weapon(new_weapon, new_damage):
 	damage = new_damage
 
 func take_damage(damage_taken):
+	damageplayer.play("damage")
 	health -= damage_taken
 	$Camera2D/HUD/HealthBar._on_health_updated(health)
 	code_sound2.stop()
@@ -154,7 +176,7 @@ func take_hunger(hunger_taken):
 
 func die():
 	get_tree().paused = true
-	animation_player.play("die")
+	animation_player.play(pre + "die")
 	yield(animation_player, "animation_finished")
 	get_tree().paused = false
 	get_tree().reload_current_scene()
@@ -171,7 +193,8 @@ func feed(food):
 	hunger = 100.0
 	hungerdamagetimer.stop()
 	hungertimer.stop()
-	healtimer.start()
+	if health < 100:
+		healtimer.start()
 	hungertimer.start()
 	$Camera2D/HUD/HungerBar._on_hunger_updated(hunger)
 	if food == "meat":
@@ -197,7 +220,7 @@ func _on_HealTimer_timeout():
 	if heals_left <= 0:
 		healtimer.stop()
 		heals_left = max_heals
-	else:
+	elif health < 100:
 		heal()
 
 

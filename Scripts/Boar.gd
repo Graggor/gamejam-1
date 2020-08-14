@@ -27,8 +27,10 @@ onready var attackvision = $AttackRange
 onready var sound = $Sound
 onready var sound2 = $Sound2
 onready var get_hit_sound = preload("res://audio/sounds/Boar/wildboar_hit.wav")
+onready var damageplayer = $DamagePlayer
 
 func take_damage(damage_taken):
+	damageplayer.play("damage")
 	health -= damage_taken
 	sound2.stop()
 	sound2.stream = get_hit_sound

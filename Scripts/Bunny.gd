@@ -15,12 +15,14 @@ var running = false
 var hit_sounds = []
 var playing_sound = false
 var meat = preload("res://Levels/Pickups/Meat.tscn")
+var died = false
 
 onready var turnrays = $TurnRays
 onready var runtimer = $RunTimer
 onready var animationplayer = $AnimationPlayer
 onready var jumpray = $JumpRay
 onready var sound = $Sound
+onready var damageplayer = $DamagePlayer
 
 func _ready():
 	jump_velocity = -sqrt(2 * gravity * jump_height)
@@ -29,11 +31,13 @@ func _ready():
 	hit_sounds.append(preload("res://audio/sounds/Rabbit/rabbit_hit03.wav"))	
 
 func take_damage(damage):
-	health -= damage
-	play_sound(hit_sounds)
-	turn_from_player()
-	state = "running"
-	print(health)
+	damageplayer.play("damage")
+	if state != "dead":
+		health -= damage
+		play_sound(hit_sounds)
+		turn_from_player()
+		state = "running"
+		print(health)
 
 func _physics_process(delta):
 	if (health <= 0 && state != "dead"):
@@ -110,9 +114,12 @@ func assign_anim(anim):
 		animationplayer.play(anim)
 
 func die():
-	var drop = meat.instance()
-	drop.position = position
-	get_parent().add_child(drop)
+	$HurtBox/CollisionShape2D.disabled = true
+	if !died:
+		died = true
+		var drop = meat.instance()
+		drop.position = position
+		get_parent().add_child(drop)
 	yield(sound, "finished")
 	queue_free()
 
