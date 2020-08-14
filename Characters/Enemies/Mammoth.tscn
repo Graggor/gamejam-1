@@ -339,7 +339,7 @@ height = 40.0
 
 [sub_resource type="CapsuleShape2D" id=11]
 radius = 30.0
-height = 180.0
+height = 400.0
 
 [sub_resource type="Animation" id=13]
 resource_name = "damage"
