@@ -64,7 +64,7 @@ margin_right = 475.898
 margin_bottom = 38.5676
 custom_fonts/font = SubResource( 2 )
 text = "Press Again
-To Cancel"
+To Skip"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
