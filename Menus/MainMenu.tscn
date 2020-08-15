@@ -57,7 +57,7 @@ __meta__ = {
 }
 
 [node name="StartButton" type="Button" parent="Buttons"]
-margin_right = 156.0
+margin_right = 155.0
 margin_bottom = 26.0
 focus_neighbour_top = NodePath("../ExitButton")
 focus_neighbour_bottom = NodePath("../SettingsButton")
@@ -74,7 +74,7 @@ __meta__ = {
 
 [node name="SettingsButton" type="Button" parent="Buttons"]
 margin_top = 36.0
-margin_right = 156.0
+margin_right = 155.0
 margin_bottom = 62.0
 focus_neighbour_top = NodePath("../StartButton")
 focus_neighbour_bottom = NodePath("../CreditButton")
@@ -91,7 +91,7 @@ __meta__ = {
 
 [node name="CreditButton" type="Button" parent="Buttons"]
 margin_top = 72.0
-margin_right = 156.0
+margin_right = 155.0
 margin_bottom = 98.0
 focus_neighbour_top = NodePath("../SettingsButton")
 focus_neighbour_bottom = NodePath("../ExitButton")
@@ -108,7 +108,7 @@ __meta__ = {
 
 [node name="ExitButton" type="Button" parent="Buttons"]
 margin_top = 108.0
-margin_right = 156.0
+margin_right = 155.0
 margin_bottom = 134.0
 focus_neighbour_top = NodePath("../CreditButton")
 focus_neighbour_bottom = NodePath("../StartButton")
