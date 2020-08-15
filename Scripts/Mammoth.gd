@@ -17,6 +17,8 @@ var may_attack = true
 var meat = preload("res://Levels/Pickups/Meat.tscn")
 var running_back = false
 
+signal mammoth_died()
+
 onready var turnrays = $TurnRays
 onready var vision = $Vision
 onready var chasetimer = $ChaseTimer
@@ -139,6 +141,7 @@ func die():
 	var drop = meat.instance()
 	drop.position = position
 	get_parent().add_child(drop)
+	emit_signal("mammoth_died")
 	queue_free()
 
 func _on_Hitbox_area_entered(area):

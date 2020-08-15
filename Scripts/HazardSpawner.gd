@@ -8,6 +8,7 @@ onready var lava = preload("res://Levels/Pickups/Lava.tscn")
 onready var wheat = preload("res://Levels/Pickups/Grain.tscn")
 onready var stick = preload("res://Levels/Pickups/Stick.tscn")
 onready var sword = preload("res://Levels/Pickups/Sword.tscn")
+onready var lava2 = preload("res://Levels/Pickups/LavaBottom.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,6 +36,8 @@ func _ready():
 				node = stick.instance()
 			"sword":
 				node = sword.instance()
+			"lava2":
+				node = lava2.instance()
 		node.set_position(Vector2(position.x * sizex + (0.5*sizex), (position.y * sizey + (0.5*sizey))+10))
 		enemies.add_child(node)
 		set_cell(position.x, position.y, -1)

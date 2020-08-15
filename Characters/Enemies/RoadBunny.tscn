@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Sprites/Enemies/rabbit.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/RoadBunny.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Hurtbox.gd" type="Script" id=3]
+[ext_resource path="res://audio/sounds/Rabbit/rabbit_hop.wav" type="AudioStream" id=5]
+[ext_resource path="res://Characters/DamageAnimation.tres" type="Animation" id=6]
+[ext_resource path="res://Damage.shader" type="Shader" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 7 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 0.0
+
+[sub_resource type="Animation" id=2]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -3 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "scared"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -20 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -2 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 10 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "damage"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 7.22074, 7.10758 )
+
+[node name="RoadBunny" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/running = SubResource( 2 )
+anims/scared = SubResource( 7 )
+anims/walking = SubResource( 3 )
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2( 0.353554, -0.674175 )
+shape = SubResource( 4 )
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "Sounds"
+
+[node name="DamagePlayer" type="AnimationPlayer" parent="."]
+pause_mode = 2
+anims/DamageAnimation = ExtResource( 6 )
+anims/damage = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 6 )

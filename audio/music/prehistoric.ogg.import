@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/prehistoric.ogg-5dd1ddfe34ad43ca8a33bdd8c1238e4d.oggstr"
+
+[deps]
+
+source_file="res://audio/music/prehistoric.ogg"
+dest_files=[ "res://.import/prehistoric.ogg-5dd1ddfe34ad43ca8a33bdd8c1238e4d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

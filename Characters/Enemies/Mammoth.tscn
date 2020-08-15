@@ -320,24 +320,24 @@ extents = Vector2( 27.554, 19.641 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 12.8099, 11.5734 )
 
-[sub_resource type="ShaderMaterial" id=12]
+[sub_resource type="ShaderMaterial" id=8]
 resource_local_to_scene = true
 shader = ExtResource( 8 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 0.0
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 21.5884, 15.2673 )
-
-[sub_resource type="CapsuleShape2D" id=9]
-radius = 20.0
-height = 160.0
 
 [sub_resource type="CapsuleShape2D" id=10]
 radius = 20.0
-height = 40.0
+height = 160.0
 
 [sub_resource type="CapsuleShape2D" id=11]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="CapsuleShape2D" id=12]
 radius = 30.0
 height = 400.0
 
@@ -400,14 +400,16 @@ shape = SubResource( 7 )
 disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 12 )
+material = SubResource( 8 )
+rotation = -0.164061
 texture = ExtResource( 4 )
-hframes = 12
-frame = 1
+offset = Vector2( 0, 2 )
+hframes = 30
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="Vision" type="Area2D" parent="."]
 visible = false
@@ -418,7 +420,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 position = Vector2( 0, -2.2955 )
 rotation = 1.5708
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="TurnRays" type="Node2D" parent="."]
 
@@ -447,7 +449,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 position = Vector2( 27, 4 )
 rotation = 1.5708
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
@@ -470,7 +472,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro"]
 rotation = 1.5708
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 
 [node name="DamagePlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2

@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Levels/RoadSpawner.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/PlayerL3.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Levels/tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://Sprites/background/background city.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Road.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Level3.gd" type="Script" id=6]
+
+[node name="Level3" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 872.31, -38.6437 )
+scale = Vector2( 0.2, 0.2 )
+z_index = -2
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10240, 640 )
+script = ExtResource( 5 )
+velocity = -0.5
+
+[node name="Background2" type="Sprite" parent="."]
+position = Vector2( 2920, -38.644 )
+scale = Vector2( 0.2, 0.2 )
+z_index = -2
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10240, 640 )
+script = ExtResource( 5 )
+velocity = -0.5
+
+[node name="RoadSpawner" parent="." instance=ExtResource( 1 )]
+position = Vector2( -155.417, 0 )
+
+[node name="RoadSpawner2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -155.417, 144 )
+
+[node name="ItemHolder" type="Node2D" parent="."]
+
+[node name="PlayerL3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 36, 76 )
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -1
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 262139, 0, 8, 262140, 0, 10, 262141, 0, 10, 262142, 0, 10, 262143, 0, 10, 196608, 0, 10, 196609, 0, 10, 196610, 0, 10, 196611, 0, 10, 196612, 0, 10, 196613, 0, 10, 196614, 0, 10, 196615, 0, 10, 196616, 0, 10, 196617, 0, 10, 196618, 0, 10, 196619, 0, 10, 196620, 0, 11, 327675, 0, 65544, 327676, 0, 131081, 327677, 0, 131081, 327678, 0, 131081, 327679, 0, 131081, 262144, 0, 131081, 262145, 0, 131081, 262146, 0, 131081, 262147, 0, 131081, 262148, 0, 131081, 262149, 0, 131081, 262150, 0, 131081, 262151, 0, 131081, 262152, 0, 131081, 262153, 0, 131081, 262154, 0, 131081, 262155, 0, 131081, 262156, 0, 131083, 393211, 0, 196616, 393212, 0, 196617, 393213, 0, 196617, 393214, 0, 196617, 393215, 0, 196617, 327680, 0, 196617, 327681, 0, 196617, 327682, 0, 196617, 327683, 0, 196617, 327684, 0, 196617, 327685, 0, 196617, 327686, 0, 196617, 327687, 0, 196617, 327688, 0, 196617, 327689, 0, 196617, 327690, 0, 196617, 327691, 0, 196617, 327692, 0, 196619 )
+
+[node name="TopSpawner" type="Position2D" parent="."]
+position = Vector2( 457.922, 41.8722 )
+
+[node name="BottomSpawner" type="Position2D" parent="."]
+position = Vector2( 458.813, 79.29 )
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
