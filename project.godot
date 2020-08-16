@@ -15,9 +15,13 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GameJam1"
+config/name="Primordial"
 run/main_scene="res://Menus/MainMenu.tscn"
-config/icon="res://icon.png"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="PrimordialTheGame"
+boot_splash/image="res://Sprites/splash.png"
+boot_splash/use_filter=false
+config/icon="res://Sprites/icon.png"
 
 [autoload]
 
@@ -133,6 +137,10 @@ move_down={
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="collectable"
+
+[logging]
+
+file_logging/enable_file_logging=true
 
 [rendering]
 
