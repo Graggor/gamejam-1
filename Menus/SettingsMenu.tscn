@@ -6,20 +6,20 @@
 [ext_resource path="res://audio/sounds/UI/select.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/background/middle ages.png" type="Texture" id=5]
 
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=4]
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=5]
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=2]
 size = 20
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=5]
 size = 48
 font_data = ExtResource( 1 )
 
@@ -54,19 +54,19 @@ __meta__ = {
 }
 
 [node name="Overall" type="HBoxContainer" parent="Buttons"]
-margin_right = 200.0
+margin_right = 199.0
 margin_bottom = 16.0
 custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="Buttons/Overall"]
 margin_right = 43.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "Sound"
 
 [node name="Overall" type="HSlider" parent="Buttons/Overall"]
 margin_left = 53.0
-margin_right = 200.0
+margin_right = 199.0
 margin_bottom = 16.0
 focus_neighbour_top = NodePath("../../BackButton")
 focus_neighbour_bottom = NodePath("../../Music/Music")
@@ -78,7 +78,7 @@ max_value = 1.2
 
 [node name="Music" type="HBoxContainer" parent="Buttons"]
 margin_top = 26.0
-margin_right = 200.0
+margin_right = 199.0
 margin_bottom = 42.0
 size_flags_horizontal = 3
 custom_constants/separation = 13
@@ -86,12 +86,12 @@ custom_constants/separation = 13
 [node name="Label" type="Label" parent="Buttons/Music"]
 margin_right = 40.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Music"
 
 [node name="Music" type="HSlider" parent="Buttons/Music"]
 margin_left = 53.0
-margin_right = 200.0
+margin_right = 199.0
 margin_bottom = 16.0
 focus_neighbour_top = NodePath("../../Overall/Overall")
 focus_neighbour_bottom = NodePath("../../Audio/Audio")
@@ -103,7 +103,7 @@ max_value = 1.2
 
 [node name="Audio" type="HBoxContainer" parent="Buttons"]
 margin_top = 52.0
-margin_right = 200.0
+margin_right = 199.0
 margin_bottom = 68.0
 size_flags_horizontal = 3
 custom_constants/separation = 14
@@ -115,12 +115,12 @@ __meta__ = {
 [node name="Label" type="Label" parent="Buttons/Audio"]
 margin_right = 39.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Audio"
 
 [node name="Audio" type="HSlider" parent="Buttons/Audio"]
 margin_left = 53.0
-margin_right = 200.0
+margin_right = 199.0
 margin_bottom = 16.0
 focus_neighbour_top = NodePath("../../Music/Music")
 focus_neighbour_bottom = NodePath("../../BackButton")
@@ -132,14 +132,14 @@ max_value = 1.2
 
 [node name="BackButton" type="Button" parent="Buttons"]
 margin_top = 78.0
-margin_right = 200.0
+margin_right = 199.0
 margin_bottom = 104.0
 focus_neighbour_top = NodePath("../Audio/Audio")
 focus_neighbour_bottom = NodePath("../Overall/Overall")
 focus_next = NodePath("../Overall/Overall")
 focus_previous = NodePath("../Audio/Audio")
 mouse_default_cursor_shape = 2
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 text = "BACK"
 flat = true
 __meta__ = {
@@ -152,6 +152,7 @@ bus = "Sounds"
 
 [node name="SelectedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -8.0
 bus = "Sounds"
 
 [node name="Title" type="Label" parent="."]
@@ -159,7 +160,7 @@ margin_left = 106.794
 margin_top = 38.6812
 margin_right = 385.794
 margin_bottom = 86.6812
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 5 )
 text = "SETTINGS"
 align = 1
 __meta__ = {

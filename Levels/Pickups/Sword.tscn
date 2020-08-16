@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/WeaponPickup.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/SwordPickup.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Environment/sword.png" type="Texture" id=2]
 [ext_resource path="res://audio/sounds/Player/pickup_metal_weapon.wav" type="AudioStream" id=3]
 
@@ -28,8 +28,6 @@ tracks/0/keys = {
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 1 )
-weapon = "sword"
-damage = 2000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

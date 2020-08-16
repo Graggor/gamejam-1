@@ -21,16 +21,16 @@ tracks/0/keys = {
 "values": [ 0, 2, 3, 2, 4, 2, 5, 2, 6, 2, 7, 2, 8, 2, 9, 2, 11, 13, 14 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/path = NodePath("AudioStreamPlayer:volume_db")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 32.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 32.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ false ]
+"values": [ 0.0, -80.0 ]
 }
 
 [sub_resource type="DynamicFont" id=2]
@@ -40,17 +40,20 @@ font_data = ExtResource( 4 )
 
 [node name="IntroCutscene" type="Node2D"]
 script = ExtResource( 3 )
+next_level = "res://Levels/Level1.tscn"
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 centered = false
 hframes = 15
+frame = 14
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/ok = SubResource( 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+volume_db = -80.0
 bus = "Music"
 
 [node name="EscapeTimer" type="Timer" parent="."]

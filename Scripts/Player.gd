@@ -15,7 +15,7 @@ var is_grounded
 var jumping = false
 var snap
 var attacking = false
-var damage = 10
+var damage = 1.9
 var weapon = "punch"
 var walk_pitch = 1.0
 var jump_sound
@@ -45,6 +45,7 @@ onready var healtimer = $HealTimer
 onready var hungerdamagetimer = $HungerDamageTimer
 onready var coyotetimer = $CoyoteTimer
 onready var damageplayer = $DamagePlayer
+onready var pause_menu = $Camera2D/PauseMenu
 
 func _ready():
 	gravity = 2 * max_jump_height / pow(jump_duration, 2)
@@ -54,6 +55,8 @@ func _ready():
 		
 	if is_medieval:
 		pre = "medieval_"
+		damage = 4
+		weapon = "stick"
 	else:
 		pre = ""
 	
@@ -127,6 +130,10 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("attack") && attacking == false:
 		attacking = true
+	
+	if event.is_action_pressed("ui_cancel"):
+		pause_menu.visible = true
+		get_tree().paused = true
 
 func _get_input():
 	var move_direction = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))

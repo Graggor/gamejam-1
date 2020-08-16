@@ -3,6 +3,7 @@ extends Node2D
 var wants_to_cancel = false
 onready var label = $Label
 onready var escape_timer = $EscapeTimer
+export (String) var next_level
 
 func _ready():
 	label.visible = false
@@ -25,7 +26,7 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 	go_to_level()
 
 func go_to_level():
-	SceneChanger.change_scene("res://Levels/Level1.tscn")
+	SceneChanger.change_scene(next_level)
 
 
 func _on_EscapeTimer_timeout():

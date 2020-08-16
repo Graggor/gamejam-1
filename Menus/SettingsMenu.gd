@@ -20,9 +20,6 @@ func _ready():
 	print(db2linear(AudioServer.get_bus_volume_db(1)))
 	print(db2linear(AudioServer.get_bus_volume_db(2)))
 	
-	print(AudioServer.get_bus_volume_db(1))
-	print(AudioServer.get_bus_volume_db(2))
-	
 	overall_slider.value = db2linear(AudioServer.get_bus_volume_db(0))
 	music_slider.value = db2linear(AudioServer.get_bus_volume_db(1))
 	audio_slider.value = db2linear(AudioServer.get_bus_volume_db(2))
@@ -44,6 +41,7 @@ func _on_Audio_value_changed(value):
 	AudioServer.set_bus_volume_db(2, linear2db(value))
 
 func _on_BackButton_pressed():
+	Settings._save()
 	selected.play()
 	SceneChanger.change_scene("res://Menus/MainMenu.tscn", 0)
 

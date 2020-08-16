@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Sprites/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Damage.shader" type="Shader" id=10]
 [ext_resource path="res://Characters/DamageAnimation.tres" type="Animation" id=11]
 [ext_resource path="res://audio/sounds/Player/hit_animalweapon_metal.wav" type="AudioStream" id=12]
+[ext_resource path="res://Menus/PauseMenu.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 10
@@ -246,7 +247,7 @@ tracks/4/keys = {
 "values": [ 1.4, 1.2 ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=10]
 resource_name = "medieval_fall"
 length = 0.2
 loop = true
@@ -275,8 +276,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "medieval_idle"
+[sub_resource type="Animation" id=11]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -328,8 +328,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "medieval_jump"
+[sub_resource type="Animation" id=12]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -357,8 +356,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "medieval_punch"
+[sub_resource type="Animation" id=13]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -412,8 +410,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0.000961967 )
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "medieval_stick"
+[sub_resource type="Animation" id=14]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -515,8 +512,7 @@ tracks/7/keys = {
 "values": [ 0.68, 1.0 ]
 }
 
-[sub_resource type="Animation" id=14]
-resource_name = "medieval_sword"
+[sub_resource type="Animation" id=15]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -541,7 +537,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 6, 8 ) ]
+"values": [ Vector2( 5.63358, 7.71626 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Body/Hitbox/CollisionShape2D:disabled")
@@ -565,7 +561,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 7.85814, 3.56083 ) ]
+"values": [ Vector2( 5.51953, 1.55631 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Hurtbox/CollisionShape2D:position")
@@ -618,7 +614,7 @@ tracks/7/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=16]
 length = 0.3
 loop = true
 step = 0.05
@@ -685,7 +681,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=17]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -739,7 +735,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0.000961967 )
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=18]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -841,7 +837,7 @@ tracks/7/keys = {
 "values": [ 0.68, 1.0 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=19]
 length = 0.3
 loop = true
 step = 0.05
@@ -932,7 +928,7 @@ __meta__ = {
 material = SubResource( 2 )
 texture = ExtResource( 1 )
 hframes = 32
-frame = 16
+frame = 23
 region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="Hitbox" type="Area2D" parent="Body" groups=[
@@ -957,6 +953,13 @@ margin_top = -131.903
 margin_right = -238.379
 margin_bottom = -131.903
 
+[node name="PauseMenu" parent="Camera2D" instance=ExtResource( 13 )]
+visible = false
+margin_left = -250.905
+margin_top = -133.5
+margin_right = -250.905
+margin_bottom = -133.5
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -2, 2 )
@@ -978,16 +981,16 @@ anims/die = SubResource( 6 )
 anims/idle = SubResource( 7 )
 anims/jump = SubResource( 8 )
 anims/medieval_die = SubResource( 9 )
-anims/medieval_fall = SubResource( 19 )
-anims/medieval_idle = SubResource( 10 )
-anims/medieval_jump = SubResource( 11 )
-anims/medieval_punch = SubResource( 12 )
-anims/medieval_stick = SubResource( 13 )
-anims/medieval_sword = SubResource( 14 )
-anims/medieval_walk = SubResource( 15 )
-anims/punch = SubResource( 16 )
-anims/stick = SubResource( 17 )
-anims/walk = SubResource( 18 )
+anims/medieval_fall = SubResource( 10 )
+anims/medieval_idle = SubResource( 11 )
+anims/medieval_jump = SubResource( 12 )
+anims/medieval_punch = SubResource( 13 )
+anims/medieval_stick = SubResource( 14 )
+anims/medieval_sword = SubResource( 15 )
+anims/medieval_walk = SubResource( 16 )
+anims/punch = SubResource( 17 )
+anims/stick = SubResource( 18 )
+anims/walk = SubResource( 19 )
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )

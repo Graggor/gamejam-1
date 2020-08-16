@@ -29,7 +29,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -3 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "scared"
 length = 0.3
 tracks/0/type = "value"
@@ -45,7 +45,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -20 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -61,11 +61,10 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -2 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 8, 10 )
 
-[sub_resource type="Animation" id=5]
-resource_name = "damage"
+[sub_resource type="Animation" id=6]
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -81,7 +80,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0, 0.0, 1.0, 0.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 7.22074, 7.10758 )
 
 [node name="RoadBunny" type="KinematicBody2D"]
@@ -96,8 +95,8 @@ offset = Vector2( 0, -3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/running = SubResource( 2 )
-anims/scared = SubResource( 7 )
-anims/walking = SubResource( 3 )
+anims/scared = SubResource( 3 )
+anims/walking = SubResource( 4 )
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4
@@ -106,7 +105,7 @@ script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 0.353554, -0.674175 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -115,7 +114,7 @@ bus = "Sounds"
 [node name="DamagePlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
 anims/DamageAnimation = ExtResource( 6 )
-anims/damage = SubResource( 5 )
+anims/damage = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 6 )
+shape = SubResource( 7 )

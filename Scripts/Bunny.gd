@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var health = 30
+var health = 4
 var walk_speed = 1 * Globals.UNIT_SIZE
 var run_speed = 6 * Globals.UNIT_SIZE
 var gravity = 563.2

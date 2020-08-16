@@ -1,0 +1,170 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/cutscenes/Outro cutscene.png" type="Texture" id=1]
+[ext_resource path="res://audio/music/maker.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Scripts/IntroCutscene.gd" type="Script" id=3]
+[ext_resource path="res://Fonts/Pixellari.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Sprites/Environment/grot.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=3]
+resource_name = "ok"
+length = 60.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5, 2.5, 4.4, 6, 7, 8.8, 11, 13.3728, 15.7, 17.2, 20, 22.2, 24.5, 26.1, 28.3, 30, 31.9, 33.9, 36.7, 38.8, 40.5, 42.6, 44.2, 46.782, 49.5, 51.4, 51.9, 52, 52.1, 52.2, 52.3, 52.4, 52.5, 52.6, 52.7, 52.8, 53.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 53.4, 58.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite2:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 53.4, 53.7, 54.7, 56.4, 57.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 60.5275, 19.8901 ), Vector2( 60.5275, 15.7628 ), Vector2( 60.5275, 11.1594 ), Vector2( 60.5275, 7.82582 ), Vector2( 60.5275, 3.38109 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 53.4, 53.7, 54.7, 56.4, 57.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 100.006, 53.9717 ), Vector2( 100.006, 74.6079 ), Vector2( 100.006, 97.6252 ), Vector2( 100.006, 116.674 ), Vector2( 100.006, 138.898 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 53.7, 54.6, 54.7, 55.3, 56.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 135.723, 51.5906 ), Vector2( 350.101, 50.4794 ), Vector2( 134.929, 70.6394 ), Vector2( 134.929, 70.6394 ), Vector2( 350.101, 70.639 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite3:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 53.7, 54.6, 54.7, 55.3, 56.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 52.5905, 4.96851 ), Vector2( 0.206291, 4.96851 ), Vector2( 52.5905, 4.96851 ), Vector2( 52.5905, 4.96851 ), Vector2( 0.00786167, 4.96851 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite3:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 53.6, 54.6, 54.7, 55.3, 56.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 50.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0.0, -80.0 ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[node name="OutroCutscene" type="Node2D"]
+script = ExtResource( 3 )
+next_level = "res://Menus/MainMenu.tscn"
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+vframes = 6
+hframes = 7
+frame = 38
+
+[node name="Sprite2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 100.006, 138.898 )
+scale = Vector2( 60.5275, 3.38109 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 6
+hframes = 7
+frame = 38
+
+[node name="Sprite3" type="Sprite" parent="."]
+visible = false
+position = Vector2( 350.101, 70.639 )
+scale = Vector2( 0.00786167, 4.96851 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 6
+hframes = 7
+frame = 38
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ok = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -80.0
+bus = "Music"
+
+[node name="EscapeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = 374.898
+margin_top = 3.56762
+margin_right = 475.898
+margin_bottom = 38.5676
+custom_fonts/font = SubResource( 2 )
+text = "Press Again
+To Skip"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="EscapeTimer" to="." method="_on_EscapeTimer_timeout"]

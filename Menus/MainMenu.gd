@@ -16,7 +16,7 @@ func _ready():
 
 func _on_StartButton_pressed():
 	selected.play()
-	SceneChanger.change_scene("res://Levels/Level1.tscn")
+	SceneChanger.change_scene("res://Cutscenes/IntroCutscene.tscn")
 
 
 func _on_Button_focus_entered():
@@ -30,8 +30,10 @@ func _on_ExitButton_pressed():
 
 
 func _on_SettingsButton_pressed():
+	selected.play()
 	SceneChanger.change_scene("res://Menus/SettingsMenu.tscn")
 
 
 func _on_CreditButton_pressed():
+	selected.play()
 	SceneChanger.change_scene("res://Menus/CreditsMenu.tscn")

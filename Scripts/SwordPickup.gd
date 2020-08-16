@@ -1,7 +1,7 @@
 extends Area2D
 
 export (String) var weapon
-var damage = 4
+var damage = 6
 onready var audioplayer = $AudioPlayer
 onready var animationplayer = $AnimationPlayer
 onready var collision = $CollisionShape2D

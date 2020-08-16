@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 Globals="*res://Scripts/Globals.gd"
 SceneChanger="*res://Levels/SceneChanger.tscn"
+Settings="*res://Scripts/Settings.gd"
 
 [display]
 

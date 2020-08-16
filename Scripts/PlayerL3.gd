@@ -2,13 +2,17 @@ extends Node2D
 
 onready var animation_player = $AnimationPlayer
 onready var tuuter = $Tuuter
+onready var car_sound = $Car
 onready var camera = $Camera2D
+onready var pause_menu = $Camera2D/PauseMenu
 var down = true
 var attacking = false
 var movement = 34
+var crash_sound
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	crash_sound = preload("res://audio/sounds/Car/crash.wav")
 	animation_player.play("driving")
 
 func _physics_process(delta):
@@ -38,6 +42,9 @@ func _unhandled_input(event):
 		yield(animation_player, "animation_finished")
 		animation_player.play("driving")
 		attacking = false
+	if event.is_action_pressed("ui_cancel"):
+		pause_menu.visible = true
+		get_tree().paused = true
 
 
 func _on_Range_body_entered(body):
@@ -48,4 +55,10 @@ func _on_Hitbox_area_entered(area):
 	area.take_damage(2000)
 	
 func take_damage(damage):
-	print("dead")
+	get_tree().paused = true
+	animation_player.stop()
+	car_sound.stop()
+	car_sound.stream = crash_sound
+	car_sound.play()
+	yield(car_sound, "finished")
+	SceneChanger.change_scene("res://Cutscenes/OutroCutscene.tscn")
